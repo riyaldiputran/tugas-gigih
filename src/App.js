@@ -92,7 +92,7 @@ function App() {
         <img src={data.album.images[0].url}/>
         <p className="song-album"> {data.album.name}</p>
         <p className="song-artists"> {data.artists[0].name}</p>
-        <Button type="button" class="btn btn-secondary"> <a href={data.uri}></a>Select </Button>
+        <Button type="button" class="btn btn-secondary btn-outline-light" > <a href={data.uri}></a>Select </Button>
       </div>
       </header>
     </div>
