@@ -1,0 +1,33 @@
+.btn {
+  min-height: 44px;
+  display: inline-block;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  padding: 0 16px;
+  cursor: pointer;
+  border-radius: 30px;
+  color: #000000;
+  transition: background-color 0.2s ease-in-out;
+  padding: 10px 24px;
+  font-size: 14.8px;
+  font-weight: 500;
+}
+
+.btn--link {
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #646464;
+}
+
+.btn--secondary {
+  color: var(--green);
+  border: 1px solid var(--green);
+  background-color: rgb(78, 78, 78);
+}
+
+.btn--secondary:hover {
+  background-color: #646464;
+  color: #FFFFFF;
+}
