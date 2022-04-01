@@ -15,9 +15,10 @@
   
   .content {
     margin-top: 50px;
+    color: rgb(129, 129, 129);
   }
-  
-  .cards {
+ 
+  .tracks {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 3fr));
     column-gap: 1px;
@@ -45,5 +46,6 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
+    color: aliceblue;
   }
   

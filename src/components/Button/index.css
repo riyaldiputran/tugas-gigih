@@ -24,7 +24,7 @@
 .btn--secondary {
   color: var(--green);
   border: 1px solid var(--green);
-  background-color: rgb(78, 78, 78);
+  background-color: rgb(247, 247, 247);
 }
 
 .btn--secondary:hover {
