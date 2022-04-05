@@ -1,55 +1,63 @@
-import React, { Component } from 'react'
-import config from '../../lib/config';
-import Button from '../Button'
-import './index.css'
+import React, { useState } from 'react';
+import Button from '../Button';
+import './index.css';
+import PropTypes from 'prop-types';
+import Input from '../Input';
+import { searchTrack } from '../../lib/fetchApi';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
-export default class SearchBar extends Component {
-  state = {
-    text: '',
+export default function SearchBar({ onSuccess, onClearSearch }) {
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const [text, setText] = useState('');
+  const [isClear, setIsClear] = useState(true);
+
+  const handleInput = (e) => {
+    setText(e.target.value);
   }
 
-  handleInput(e) {
-    this.setState({ text: e.target.value });
-  }
-
-  async onSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { text } = this.state;
-
-    var requestOptions = {
-      headers: {
-        'Authorization': 'Bearer ' + this.props.accessToken,
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
-      const response = await fetch(`${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}`, requestOptions)
-        .then((data) => data.json());
+      const response = await searchTrack(text, accessToken);
 
       const tracks = response.tracks.items;
-      this.props.onSuccess(tracks);
+      onSuccess(tracks);
+      setIsClear(false);
     } catch (e) {
-      alert(e);
+      toast.error(e);
     }
-
-    e.target.blur();
   }
 
-  render() {
-    return (
-      <form className="form-search" onSubmit={(e) => this.onSubmit(e)}>
-        <input
+  const handleClear = () => {
+    onClearSearch();
+    setText('');
+    setIsClear(true);
+  }
+
+  return (
+    <div>
+      <form className="form-search" onSubmit={handleSubmit}>
+        <Input
           type="text"
           placeholder="Search..."
           className="form-search__input"
           required
-          onChange={(e) => this.handleInput(e)}
+          value={text}
+          onChange={handleInput}
         />
         <Button type="submit">Search</Button>
       </form>
-    )
-  }
+
+      {!isClear && (
+        <Button variant="text" onClick={handleClear} className="mt-1">Clear search</Button>
+      )}
+    </div>
+  )
 }
 
+SearchBar.propTypes = {
+  onSuccess: PropTypes.func.isRequired,
+  onClearSearch: PropTypes.func.isRequired,
+}

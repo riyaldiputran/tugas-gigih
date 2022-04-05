@@ -5,12 +5,21 @@ import Button from '../Button';
 import Input from '../Input';
 import InputGroup from '../InputGroup';
 import './index.css';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default function FormPlaylist({ accessToken, userId, uriTracks }) {
+
+export default function FormPlaylist({uriTracks }) {
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const userId = useSelector((state) => state.auth.user.id);
+  FormPlaylist.propTypes = {
+    uriTracks: PropTypes.array.isRequired,
+  }
   const [form, setForm] = useState({
     title: '',
     description: '',
   });
+  
 
   const [errorForm, setErrorForm] = useState({
     title: '',

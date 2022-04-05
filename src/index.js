@@ -6,10 +6,15 @@ import { ToastContainer } from 'react-toastify';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SpotifyApp from './SpotifyApp'
+import { Provider } from 'react-redux';
+import store from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SpotifyApp />
+     <Provider store={store}>
+      <SpotifyApp />
+      <ToastContainer />
+    </Provider>
     <ToastContainer />
   </React.StrictMode>,
   document.getElementById('root')
