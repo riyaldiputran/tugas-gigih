@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addTracksToPlaylist, createPlaylist } from '../../lib/fetchApi.js';
+import { addTracksToPlaylist, createPlaylist } from '../../lib/fetchApi';
 import Button from '../Button';
 import Input from '../Input';
 import InputGroup from '../InputGroup';
 import './index.css';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { logout } from '../../slice/authSlice';
 
-
-export default function FormPlaylist({uriTracks }) {
+export default function FormPlaylist({ uriTracks }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const userId = useSelector((state) => state.auth.user.id);
-  FormPlaylist.propTypes = {
-    uriTracks: PropTypes.array.isRequired,
-  }
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
     title: '',
     description: '',
   });
-  
 
   const [errorForm, setErrorForm] = useState({
     title: '',
@@ -36,10 +34,10 @@ export default function FormPlaylist({uriTracks }) {
   const validateForm = () => {
     let isValid = true;
 
-    if (form.title.length < 5) {
+    if (form.title.length < 10) {
       setErrorForm({
         ...errorForm,
-        title: 'Title must be at least 5 characters long'
+        title: 'Title must be at least 10 characters long'
       });
       isValid = false;
     }
@@ -47,33 +45,39 @@ export default function FormPlaylist({uriTracks }) {
     if (form.description.length > 100) {
       setErrorForm({
         ...errorForm,
-        description: 'Description must be at least 10 characters long'
+        description: 'Description must be less than 100 characters long'
       });
       isValid = false;
     }
-    
 
     return isValid;
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      try {
-        const responseCreatePlaylist = await createPlaylist(accessToken, userId, {
-          name: form.title,
-          description: form.description,
-        });
+      if (uriTracks.length > 0) {
+        try {
+          const responseCreatePlaylist = await createPlaylist(accessToken, userId, {
+            name: form.title,
+            description: form.description,
+          });
 
-        await addTracksToPlaylist(accessToken, responseCreatePlaylist.id, uriTracks);
+          await addTracksToPlaylist(accessToken, responseCreatePlaylist.id, uriTracks);
 
-        toast.success('Playlist created successfully');
+          toast.success('Playlist created successfully');
 
-        setForm({ title: '', description: '' });
-      } catch (error) {
-        toast.error(error);
+          setForm({ title: '', description: '' });
+        } catch (error) {
+          if (error.response.status === 401) {
+            dispatch(logout());
+          } else {
+            toast.error(error.message);
+          }
+        }
+      } else {
+        toast.error('Please select at least one track');
       }
     }
   }
@@ -118,3 +122,7 @@ export default function FormPlaylist({uriTracks }) {
     </div>
   )
 }
+
+FormPlaylist.propTypes = {
+  uriTracks: PropTypes.array.isRequired,
+};

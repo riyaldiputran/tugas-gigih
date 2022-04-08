@@ -3,35 +3,31 @@ import Track from '../components/Track';
 import SearchBar from '../components/SearchBar';
 import config from '../lib/config';
 import Button from '../components/Button';
-import FormPlaylist from '../components/FormPlaylist'
+import CreatePlaylistForm from '../components/CreatePlaylistForm';
 import { getUserProfile } from '../lib/fetchApi';
 import { toast } from 'react-toastify';
-import { useDocumentTitle } from '../lib/customHooks';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../slice/authSlice';
 
 export default function Home() {
+  const [accessToken, setAccessToken] = useState('');
+  const [isAuthorize, setIsAuthorize] = useState(false);
   const [tracks, setTracks] = useState([]);
   const [selectedTracksUri, setSelectedTracksUri] = useState([]);
   const [selectedTracks, setSelectedTracks] = useState([]);
   const [isInSearch, setIsInSearch] = useState(false);
-  const isAuthorize = useSelector((state) => state.auth.isAuthorize);
-  const dispatch = useDispatch();
-
-  useDocumentTitle('Home - Spotipy');
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const accessTokenParams = new URLSearchParams(window.location.hash).get('#access_token');
 
     if (accessTokenParams !== null) {
+      setAccessToken(accessTokenParams);
+      setIsAuthorize(accessTokenParams !== null);
+
       const setUserProfile = async () => {
         try {
-          const responseUser = await getUserProfile(accessTokenParams);
+          const response = await getUserProfile(accessTokenParams);
 
-          dispatch(login({
-            accessToken: accessTokenParams,
-            user: responseUser
-          }));
+          setUser(response);
         } catch (e) {
           toast.error(e);
         }
@@ -51,7 +47,7 @@ export default function Home() {
     const state = Date.now().toString();
     const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 
-    return `https://accounts.spotify.com/authorize?client_id=ed19bc990d1040308ffd9a9cfba151d4&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
+    return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000&state=${state}&scope=${config.SPOTIFY_SCOPE}`;
   }
 
   const onSuccessSearch = (searchTracks) => {
@@ -61,6 +57,7 @@ export default function Home() {
 
     setTracks([...new Set([...selectedSearchTracks, ...searchTracks])])
   }
+
 
   const clearSearch = () => {
     setTracks(selectedTracks);
@@ -90,11 +87,16 @@ export default function Home() {
 
       {isAuthorize && (
         <main className="container" id="home">
-          <FormPlaylist uriTracks={selectedTracksUri} />
+          <CreatePlaylistForm
+            accessToken={accessToken}
+            userId={user.id}
+            uriTracks={selectedTracksUri}
+          />
 
           <hr />
 
           <SearchBar
+            accessToken={accessToken}
             onSuccess={onSuccessSearch}
             onClearSearch={clearSearch}
           />
