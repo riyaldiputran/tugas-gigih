@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/style/index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import reportWebVitals from './reportWebVitals';
@@ -8,11 +8,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SpotifyApp from './SpotifyApp'
 import { Provider } from 'react-redux';
 import store from './store';
+import {BrowserRouter as Router} from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
      <Provider store={store}>
-      <SpotifyApp />
+       <Router>
+        <SpotifyApp />
+      </Router>
       <ToastContainer />
     </Provider>
     <ToastContainer />
