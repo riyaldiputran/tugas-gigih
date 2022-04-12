@@ -1,6 +1,6 @@
 .navbar {
     padding: 12px 0;
-    background-color: var(--green);
+    background-color: var(--red);
     position: sticky;
     top: 0;
     z-index: 9999;

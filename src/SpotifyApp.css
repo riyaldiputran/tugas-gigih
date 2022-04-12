@@ -2,20 +2,21 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 100px;
+    background-color: rgb(255, 0, 0);
   }
-    body {
-    background-color: rgb(31, 31, 31);
+
+  
 
 
-}
   #home {
     margin-top: 20px;
     margin-bottom: 20px;
+    background-color: rgb(255, 0, 0);
   }
   
   .content {
     margin-top: 50px;
-    color: rgb(129, 129, 129);
+    color: rgb(0, 0, 0);
   }
  
   .tracks {
@@ -46,6 +47,7 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    color: aliceblue;
+    color: rgb(0, 0, 0);
+    
   }
   
