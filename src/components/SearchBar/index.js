@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../Button';
+import Button from '@mui/material/Button'
 import './index.css';
 import PropTypes from 'prop-types';
 import Input from '../Input';
@@ -53,11 +53,11 @@ export default function SearchBar({ onSuccess, onClearSearch }) {
           value={text}
           onChange={handleInput}
         />
-        <Button type="submit">Search</Button>
+        <Button variant="contained" size="large" color='error' style={{ borderRadius: 50 }} type="submit">Search</Button>
       </form>
 
       {!isClear && (
-        <Button variant="text" onClick={handleClear} className="mt-1">Clear search</Button>
+        <Button variant="contained" size="large" color='error' style={{ borderRadius: 50 }} onClick={handleClear} className="mt-1">Clear search</Button>
       )}
     </div>
   )
