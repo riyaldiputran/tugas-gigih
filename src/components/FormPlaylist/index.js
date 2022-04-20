@@ -98,6 +98,7 @@ export default function FormPlaylist({ uriTracks }) {
               onChange={handleChange}
               error={errorForm.title}
               required
+              data-testid="title-playlist"
             />
           </InputGroup>
           <InputGroup>
@@ -111,11 +112,12 @@ export default function FormPlaylist({ uriTracks }) {
               onChange={handleChange}
               required
               error={errorForm.description}
+              data-testid="description-playlist"
             />
           </InputGroup>
 
           <div className="form-playlist__action">
-            <Button variant="contained" size="large" color='error' style={{ borderRadius: 50 }} type="submit">Create</Button>
+            <Button variant="contained" size="large" color='error' style={{ borderRadius: 50 }} type="submit" data-testid="btn-create-playlist">Create</Button>
           </div>
         </form>
       </div>
