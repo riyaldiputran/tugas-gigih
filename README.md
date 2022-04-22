@@ -15,4 +15,5 @@ Cara Jalankan Web:
 2. Klik untuk authorize akun spotify kamu
 3. Setelah login , kamu berada di halaman create playlist.
 4. Di Create Playlist kamu bisa mencari lagu yang ingin kamu masukkan kedalam playlist mu
-5. Add To Playlist
+5. Klik Create 
+6. Selesai
