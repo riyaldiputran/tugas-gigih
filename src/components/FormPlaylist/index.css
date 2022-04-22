@@ -1,12 +1,12 @@
 .create-playlist-form {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     color: rgb(0, 0, 0);
   }
   
   .form-playlist {
     min-width: 300px;
-    width: 400px;
+    width: 600px;
     margin-top: 24px;
   }
   
