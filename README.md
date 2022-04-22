@@ -1,5 +1,5 @@
 Gigif Spotify by Riyaldi Narendra
-Aplikasi mirip Spotify untuk Create Playlist dari lagu yang anda inginka
+Aplikasi mirip Spotify untuk Create Playlist dari lagu yang anda inginkan
 
 Description
 API used: https://api.spotify.com/
