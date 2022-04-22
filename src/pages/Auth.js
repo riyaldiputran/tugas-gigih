@@ -52,7 +52,7 @@ export default function Auth() {
 
   return (
     <main className="center">
-      <p>Login for next step...</p>
+      <h1>Authorize your spotify account first to login !</h1>
       <Button variant="contained" size="large" color='error' style={{ borderRadius: 50 }} href={getSpotifyLinkAuthorize()} external>Authorize</Button>
     </main>
   )

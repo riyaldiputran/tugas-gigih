@@ -34,7 +34,9 @@ hr {
   justify-content: flex-end;
   align-items: center;
   height: 500px;
-  
+}
+.center p{
+  color: #808080;
 }
 
 .form {
