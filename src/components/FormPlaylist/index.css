@@ -1,6 +1,6 @@
 .create-playlist-form {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     color: rgb(0, 0, 0);
   }
   
