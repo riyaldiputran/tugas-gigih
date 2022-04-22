@@ -45,7 +45,7 @@ export default function Auth() {
     return 'https://accounts.spotify.com/authorize?' +
       `client_id=${clientId}` +
       '&response_type=token' +
-      '&redirect_uri=https://gigih-spotify.vercel.app/' +
+      '&redirect_uri=https://gigih-spotipy.vercel.app/' +
       `&state=${state}` +
       `&scope=${config.SPOTIFY_SCOPE}`;
   }
